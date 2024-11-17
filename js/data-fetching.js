@@ -1,46 +1,45 @@
 import { showLoadingScreen, hideLoadingScreen } from './loading-screen.js';
 import { displayData } from './display-data.js';
 
+export let searchTitle = 'Coco';
+export let type = 'Movie';
 export let currentPage = 1;
-let searchTitle = 'captain'; // Default search title
-let type = 'series'; // Default type
-let year = ''; // Default year
-let r = 'json'; // Default response format
-let callback = ''; // Default callback
-let v = '1'; // Default API version
+
+window.searchTitle = searchTitle;
+window.type = type;
+
+const apiKey = '884d604e';
+const apiVersion = '1';
+const responseFormat = 'json';
+
 export async function fetchData(page = currentPage) {
   showLoadingScreen();
-  // Construct the URL with all parameters
   const url = new URL('https://www.omdbapi.com/');
   const params = {
-    s: searchTitle,
-    type: type,
-    y: year,
-    r: r,
+    s: window.searchTitle,
+    type: window.type,
+    r: responseFormat,
     page: page,
-    callback: callback,
-    v: v,
-    apikey: '884d604e'
+    v: apiVersion,
+    apikey: apiKey,
   };
   Object.keys(params).forEach(key => params[key] && url.searchParams.append(key, params[key]));
-  const options = {
-    method: 'GET'
-  };
+
   try {
-    const response = await fetch(url, options);
+    const response = await fetch(url);
     const data = await response.json();
     if (data.Response === 'False') {
-      console.error('API Error:', data.Error);
-      alert('No results found or there is an issue with the search term. Please try again.');
+      alert(data.Error || 'No results found. Please try again.');
     } else {
       displayData(data.Search || []);
     }
-    hideLoadingScreen();
   } catch (error) {
     console.error('Error fetching data from the API:', error);
+  } finally {
     hideLoadingScreen();
   }
 }
+
 export function setCurrentPage(page) {
   currentPage = page;
 }

@@ -2552,4 +2552,75 @@ figcaption {
   grid-area: span 1 / span 1 / span 1 / span 1;
 }
 
+/*Search bar CSS*/
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 70px;
+}
 
+#search-input {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex: 1;
+}
+
+#type-select {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#search-button {
+  padding: 8px 16px;
+  font-size: 16px;
+  color: #fff;
+  background-image: linear-gradient(87deg, #ffcf69, #ffca6e 0%, #ffad88);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#search-button:hover {
+  background-color: #0056b3;
+}
+
+/* Next page button css*/
+.next-page-section {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#next-page-button {
+  display: inline-block;
+  padding: 12px 30px;
+  background-image: linear-gradient(87deg, #ffcf69, #ffca6e 0%, #ffad88);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#next-page-button:hover {
+  background-image: linear-gradient(87deg, #ffad88, #ffca6e 0%, #ffcf69);
+  transform: translateY(-2px);
+}
+
+#next-page-button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 140, 0, 0.5);
+}
+
+#next-page-button:active {
+  background-image: linear-gradient(87deg, #ffad88, #ffcf69 0%, #ffca6e);
+  transform: translateY(0);
+}
