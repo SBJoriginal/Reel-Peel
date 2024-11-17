@@ -6,9 +6,14 @@
 .w-layout-layout {
   grid-row-gap: 20px;
   grid-column-gap: 20px;
-  grid-auto-columns: 1fr;
-  justify-content: center;
+  width: 100%;
+  display: grid;
   padding: 20px;
+}
+
+.wf-layout-layout {
+  display: grid;
+  gap: 20px; /* Add space between items */
 }
 
 .w-layout-cell {
@@ -1825,19 +1830,44 @@ figcaption {
 }
 
 .movie-modal {
-  z-index: 2;
-  -webkit-text-fill-color: inherit;
-  background-color: #0000;
-  background-image: linear-gradient(#000c, #000c);
-  background-clip: border-box;
-  border: 1px solid #000;
-  border-radius: 0;
-  justify-content: center;
-  align-items: center;
-  display: none;
+  z-index: 2; /* Ensure it appears on top */
+  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+  display: flex; /* Flex to center content */
+  justify-content: center; /* Horizontally center content */
+  align-items: center; /* Vertically center content */
   position: fixed;
-  inset: 0%;
+  inset: 0; /* Full-screen overlay */
+  padding: 20px; /* Space around the modal */
 }
+
+#modal-content {
+  width: 40%; /* Set modal width to 75% of the screen */
+  max-width: 1200px; /* Optional: limit maximum width */
+  background-color: #fff; /* White background for modal */
+  border-radius: 10px; /* Rounded corners */
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+  padding-top: 20px; /* Space inside the modal */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Add a shadow for depth */
+  position: relative; /* Ensure the close button stays within the modal */
+}
+
+#close-modal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+  background-image: linear-gradient(87deg, #ffcf69, #ffca6e 0%, #ffad88);
+  border: none;
+  cursor: pointer;
+}
+
+#close-modal:hover {
+  background-image: linear-gradient(87deg, #ff9f3d, #ff9b44 0%, #ff7e63);
+
+}
+
 
 .cell-25 {
   justify-content: center;
@@ -1851,13 +1881,13 @@ figcaption {
 .quick-stack-25, .quick-stack-26 {
   grid-column-gap: 0px;
   grid-row-gap: 0px;
+  grid-gap: 10px;
 }
 
 .quick-stack-27 {
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   background-color: #fff;
-  border: 1px solid #000;
 }
 
 .image-6 {
@@ -2534,8 +2564,9 @@ figcaption {
 }
 
 #w-node-_8d2adcc1-000b-0449-92bb-bda5ca9a459f-c2b37c92 {
+  display: grid;
   grid-template-rows: auto;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr 2fr; /* Adjusted to give more space to the second column */
 }
 
 #w-node-_949202b0-7387-5289-8c2f-54e71af339e5-c2b37c92 {
@@ -2545,7 +2576,6 @@ figcaption {
 
 #w-node-_1fe8e018-bf0f-fb7a-9744-33394679becf-c2b37c92 {
   grid-template-rows: auto auto auto;
-  grid-template-columns: 1fr 1fr;
 }
 
 #w-node-_85235568-4ea3-81fa-446f-0a402a2e43f2-c2b37c92, #w-node-_85235568-4ea3-81fa-446f-0a402a2e43fb-c2b37c92, #w-node-_85235568-4ea3-81fa-446f-0a402a2e4406-c2b37c92 {
@@ -2623,4 +2653,26 @@ figcaption {
 #next-page-button:active {
   background-image: linear-gradient(87deg, #ffad88, #ffcf69 0%, #ffca6e);
   transform: translateY(0);
+}
+
+/* Change the layout to a single column for movie details */
+#movie-detail-modal .quick-stack-26 {
+  display: grid;
+  grid-template-columns: 1fr; /* Single column */
+  grid-gap: 10px; /* Adds space between rows */
+  width: 100%;
+}
+
+#movie-detail-modal .quick-stack-26 .w-layout-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 5px 0; /* Optional: space between items */
+}
+
+/* Optional: Adjust font size or spacing if needed */
+#movie-year, #movie-runtime, #movie-rating, #movie-language {
+  font-size: 16px;
+  margin: 0; /* Remove any extra margin */
+  padding: 5px 0; /* Optional: control padding around each text */
 }

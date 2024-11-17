@@ -11,11 +11,16 @@ window.type = type;
 const apiKey = '884d604e';
 const apiVersion = '1';
 const responseFormat = 'json';
+const plotType = 'short';
 
 export async function fetchData(page = currentPage) {
-  showLoadingScreen(); // Show spinner while fetching data
-  const url = new URL('https://www.omdbapi.com/');
-  const params = {
+  showLoadingScreen();
+  
+  const baseUrl = 'https://www.omdbapi.com/';
+  
+  // Step 1: Fetch a list of movies
+  const searchUrl = new URL(baseUrl);
+  const searchParams = {
     s: window.searchTitle,
     type: window.type,
     r: responseFormat,
@@ -23,26 +28,48 @@ export async function fetchData(page = currentPage) {
     v: apiVersion,
     apikey: apiKey,
   };
-  Object.keys(params).forEach(key => params[key] && url.searchParams.append(key, params[key]));
+  Object.keys(searchParams).forEach((key) =>
+    searchParams[key] && searchUrl.searchParams.append(key, searchParams[key])
+  );
 
   try {
-    const response = await fetch(url);
-    const data = await response.json();
+    const searchResponse = await fetch(searchUrl);
+    const searchData = await searchResponse.json();
 
-    if (data.Response === 'False') {
-      alert(data.Error || 'No results found. Please try again.');
-      hideLoadingScreen(); // Hide spinner if no results
-    } else {
-      // Pass data to displayData and wait for images to load
-      await displayData(data.Search || []);
-      hideLoadingScreen(); // Hide spinner after cards are fully ready
+    if (searchData.Response === 'False') {
+      alert(searchData.Error || 'No results found. Please try again.');
+      hideLoadingScreen();
+      return;
     }
+
+    // Step 2: Fetch detailed info for each movie
+    const detailedMovies = await Promise.all(
+      searchData.Search.map(async (movie) => {
+        const detailUrl = new URL(baseUrl);
+        const detailParams = {
+          i: movie.imdbID, // Fetch details by IMDb ID
+          plot: plotType,
+          apikey: apiKey,
+        };
+        Object.keys(detailParams).forEach((key) =>
+          detailParams[key] && detailUrl.searchParams.append(key, detailParams[key])
+        );
+
+        const detailResponse = await fetch(detailUrl);
+        const detailData = await detailResponse.json();
+        return detailData.Response === 'True' ? detailData : null;
+      })
+    );
+
+    // Step 3: Filter out any null responses and display results
+    const validMovies = detailedMovies.filter((movie) => movie !== null);
+    displayData(validMovies);
   } catch (error) {
     console.error('Error fetching data from the API:', error);
-    hideLoadingScreen(); // Hide spinner in case of an error
+  } finally {
+    hideLoadingScreen();
   }
 }
-
 
 export function setCurrentPage(page) {
   currentPage = page;

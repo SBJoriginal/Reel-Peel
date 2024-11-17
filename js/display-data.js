@@ -39,7 +39,6 @@ export async function displayData(movies) {
     const placeholderSrc = 'images/placeholder.png';
     const actualPosterSrc = movie.Poster !== 'N/A' ? movie.Poster : placeholderSrc;
 
-    // Wait for the poster image to load
     await new Promise((resolve) => {
       const img = new Image();
       img.onload = () => {
@@ -50,16 +49,14 @@ export async function displayData(movies) {
         poster.src = placeholderSrc;
         resolve();
       };
-      img.src = actualPosterSrc; // Start loading the image
+      img.src = actualPosterSrc;
     });
 
     card.addEventListener('click', () => showMovieDetails(movie));
     return card;
   });
 
-  // Wait for all cards to be fully prepared
   const cards = await Promise.all(promises);
 
-  // Append cards to the container
   cards.forEach((card) => dataContainer.appendChild(card));
 }
