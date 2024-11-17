@@ -21,7 +21,7 @@ export function displayData(movies) {
     return;
   }
 
-  clearDataContainer();
+  clearDataContainer();//wee have to do an if or something on if it is the search or if i am clicking the button. because i want this to not happen when i click the button but i want it to happen when i do the search thing!
 
   const sampleCard = document.getElementById('sample-card');
   if (!sampleCard) {
