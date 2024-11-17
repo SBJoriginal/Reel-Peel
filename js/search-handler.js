@@ -1,4 +1,5 @@
 import { fetchData } from './data-fetching.js';
+import { clearDataContainer } from './display-data.js';
 
 function handleSearch() {
   const searchTitleInput = document.getElementById('search-input').value.trim();
@@ -17,15 +18,21 @@ function handleSearch() {
 
 export function initializeSearch() {
   const searchButton = document.getElementById('search-button');
-  const searchInput = document.getElementById('search-input');
+  const searchInput = document.getElementById('search-input')
+  
 
   if (searchButton) {
-    searchButton.addEventListener('click', handleSearch);
+    searchButton.addEventListener('click', function() {
+      clearDataContainer(); 
+      handleSearch();     
+    });
   }
+  
 
   if (searchInput) {
     searchInput.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
+        clearDataContainer();
         handleSearch();
       }
     });
