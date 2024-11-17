@@ -1440,7 +1440,7 @@ figcaption {
 }
 
 .image-4 {
-  height: Infinity% ;
+  height: 100% ;
   width: 100%;
   display: block;
   position: fixed;
