@@ -18,7 +18,8 @@ function handleSearch() {
 
 export function initializeSearch() {
   const searchButton = document.getElementById('search-button');
-  const searchInput = document.getElementById('search-input')
+  const searchInput = document.getElementById('search-input');
+  const searchType = document.getElementById('type-select');
   
 
   if (searchButton) {
@@ -36,5 +37,13 @@ export function initializeSearch() {
         handleSearch();
       }
     });
+  }
+
+
+  if (searchType){
+    searchType.addEventListener('input', function(){
+      clearDataContainer();
+      handleSearch();
+    })
   }
 }

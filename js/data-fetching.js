@@ -13,7 +13,7 @@ const apiVersion = '1';
 const responseFormat = 'json';
 
 export async function fetchData(page = currentPage) {
-  showLoadingScreen();
+  showLoadingScreen(); // Show spinner while fetching data
   const url = new URL('https://www.omdbapi.com/');
   const params = {
     s: window.searchTitle,
@@ -28,17 +28,21 @@ export async function fetchData(page = currentPage) {
   try {
     const response = await fetch(url);
     const data = await response.json();
+
     if (data.Response === 'False') {
       alert(data.Error || 'No results found. Please try again.');
+      hideLoadingScreen(); // Hide spinner if no results
     } else {
-      displayData(data.Search || []);
+      // Pass data to displayData and wait for images to load
+      await displayData(data.Search || []);
+      hideLoadingScreen(); // Hide spinner after cards are fully ready
     }
   } catch (error) {
     console.error('Error fetching data from the API:', error);
-  } finally {
-    hideLoadingScreen();
+    hideLoadingScreen(); // Hide spinner in case of an error
   }
 }
+
 
 export function setCurrentPage(page) {
   currentPage = page;
