@@ -10,7 +10,7 @@ function handleSearch() {
     return;
   }
 
-  window.searchTitle = searchTitleInput;
+  window.searchTitle = `*${searchTitleInput}*`;
   window.type = typeSelect;
 
   fetchData(1);
