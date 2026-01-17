@@ -32,12 +32,3 @@ ReelPeel is a movie information platform that fetches data from the OMDb API and
 3. **Authentication Implementation**: Building a secure login system using Supabase.  
 4. **UX Design**: Crafting an intuitive and visually appealing interface.  
 
----
-
-## 🚀 **Setup Instructions**  
-
-Follow these steps to run ReelPeel locally:  
-
-1. Clone the repository:  
-   ```bash  
-   git clone https://github.com/your-username/reelpeel.git  
